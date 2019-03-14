@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">League of Legend Champion Info</string>
+
+    <string name="loading_error_message">Woops.  We couldn\'t load your forecast.  Verify that you\'ve entered a valid OpenWeatherMap API key, check your internet connection, and try again.</string>
+
+    <string name="action_share">Share champion</string>
+    <string name="action_settings">Settings</string>
+    <string name="share_chooser_title">Pick an app to share this champion</string>
+
+    <string name="champion_name">%1$s</string>
+    <string name="champion_lore">Lore: %1$s</string>
+
+
+
+</resources>
