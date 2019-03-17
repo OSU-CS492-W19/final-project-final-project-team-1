@@ -1,19 +1,33 @@
 package com.example.finalproject;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.finalproject.data.AllChampionItem;
+import com.example.finalproject.data.Status;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements ChampionAdapter.OnChampionItemClickListener{
+        implements ChampionAdapter.OnChampionItemClickListener, SharedPreferences.OnSharedPreferenceChangeListener{
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -25,6 +39,7 @@ public class MainActivity extends AppCompatActivity
 
     private ChampionAdapter mChampionAdapter;
 //    private DrawerAdapter mDrawerAdapter;
+    private ChampionViewModel mChampionViewModel;
 
 
     @Override
@@ -58,12 +73,83 @@ public class MainActivity extends AppCompatActivity
 
         getSupportActionBar().setElevation(0);
 
+        mChampionViewModel = ViewModelProviders.of(this).get(ChampionViewModel.class);
 
+        mChampionViewModel.getChampion().observe(this, new Observer<List<AllChampionItem>>() {
+            @Override
+            public void onChanged(@Nullable List<AllChampionItem> championItems) {
+                mChampionAdapter.updateChampionItems(championItems);
+            }
+        });
 
+        mChampionViewModel.getLoadingStatus().observe(this, new Observer<Status>() {
+            @Override
+            public void onChanged(@Nullable Status status) {
+                if (status == Status.LOADING) {
+                    mLoadingIndicatorPB.setVisibility(View.VISIBLE);
+                } else if (status == Status.SUCCESS) {
+                    mLoadingIndicatorPB.setVisibility(View.INVISIBLE);
+                    mLoadingErrorMessageTV.setVisibility(View.INVISIBLE);
+                    mChampionItemsRV.setVisibility(View.VISIBLE);
+                } else {
+                    mLoadingIndicatorPB.setVisibility(View.INVISIBLE);
+                    mChampionItemsRV.setVisibility(View.INVISIBLE);
+                    mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences.registerOnSharedPreferenceChangeListener(this);
+        loadChampion(preferences);
     }
 
     @Override
-    public void onChampionItemClick(AllChampionItem forecastItem) {
+    protected void onDestroy() {
+        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
+        super.onDestroy();
+    }
 
+    @Override
+    public void onChampionItemClick(AllChampionItem championItem) {
+//        Intent intent = new Intent(this, ForecastItemDetailActivity.class);
+//        intent.putExtra(OpenWeatherMapUtils.EXTRA_FORECAST_ITEM, forecastItem);
+//        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                return true;
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(Gravity.START);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void loadChampion(SharedPreferences preferences) {
+        String language = preferences.getString(
+                getString(R.string.pref_lang_default_value),           //this need to be fixed
+                getString(R.string.pref_lang_default_value)
+        );
+
+        mChampionViewModel.loadChampion(language);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        mChampionViewModel = ViewModelProviders.of(this).get(ChampionViewModel.class);
+        loadChampion(sharedPreferences);
     }
 }

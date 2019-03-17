@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">League of Legend Champion Info</string>
+    <string name="app_name">LoL Champion Info</string>
 
-    <string name="loading_error_message">Woops.  We couldn\'t load your forecast.  Verify that you\'ve entered a valid OpenWeatherMap API key, check your internet connection, and try again.</string>
+    <string name="loading_error_message">Woops.  We couldn\'t load your LOL champion.  Check your internet connection, and try again.</string>
 
     <string name="action_share">Share champion</string>
     <string name="action_settings">Settings</string>
@@ -10,6 +10,15 @@
     <string name="champion_name">%1$s</string>
     <string name="champion_lore">Lore: %1$s</string>
 
-
+    <!-- Strings for language pref -->
+    <string name="pref_lang_key" translatable="false">pref_lang</string>
+    <string name="pref_lang_title">Choose a language</string>
+    <string name="pref_lang_eng">English</string>
+    <string name="pref_lang_fre">French</string>
+    <string name="pref_lang_cn">Chinese</string>
+    <string name="pref_lang_eng_value" translatable="false">en_US</string>
+    <string name="pref_lang_fre_value" translatable="false">fr_FR</string>
+    <string name="pref_lang_cn_value" translatable="false">zh_CN</string>
+    <string name="pref_lang_default_value" translatable="false">@string/pref_lang_eng_value</string>
 
 </resources>
