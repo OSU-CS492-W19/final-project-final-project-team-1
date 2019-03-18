@@ -72,10 +72,11 @@ public class ChampionAdapter extends RecyclerView.Adapter<ChampionAdapter.Champi
 
         public void bind(AllChampionItem championItem) {
             String champion_name = mChampionNameTV.getContext().getString(R.string.champion_name, championItem.champion_name);
+            String champion_id = championItem.champion_id;
 
             mChampionNameTV.setText(champion_name);
 
-            String make_champion_name_greate_again = champion_name+".png";
+            String make_champion_name_greate_again = champion_id+".png";
             String iconURL = LOLChampionUtils.buildChampionIconURL(make_champion_name_greate_again);
             Glide.with(mChampionIconIV.getContext()).load(iconURL).into(mChampionIconIV);
         }

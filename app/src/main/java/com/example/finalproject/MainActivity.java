@@ -14,6 +14,7 @@ import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     private ChampionAdapter mChampionAdapter;
 //    private DrawerAdapter mDrawerAdapter;
     private ChampionViewModel mChampionViewModel;
+    private ChampionDetailViewModel mChampionDetailViewModel;
 
 
     @Override
@@ -52,7 +54,6 @@ public class MainActivity extends AppCompatActivity
         mChampionItemsRV = findViewById(R.id.rv_champion_items);
         mDrawerItemRV = findViewById(R.id.rv_drawer_items);
         mDrawerLayout = findViewById(R.id.drawer_layout);
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -81,6 +82,8 @@ public class MainActivity extends AppCompatActivity
                 mChampionAdapter.updateChampionItems(championItems);
             }
         });
+
+
 
         mChampionViewModel.getLoadingStatus().observe(this, new Observer<Status>() {
             @Override
@@ -112,9 +115,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onChampionItemClick(AllChampionItem championItem) {
-//        Intent intent = new Intent(this, ForecastItemDetailActivity.class);
-//        intent.putExtra(OpenWeatherMapUtils.EXTRA_FORECAST_ITEM, forecastItem);
-//        startActivity(intent);
+//        Log.d(TAG, "champion is: " + championItem.champion_name);
+        Intent intent = new Intent(this, ChampionDetailActivity.class);
+        intent.putExtra("champion_name", championItem.champion_id);
+        startActivity(intent);
     }
 
     @Override
@@ -140,10 +144,10 @@ public class MainActivity extends AppCompatActivity
 
     public void loadChampion(SharedPreferences preferences) {
         String language = preferences.getString(
-                getString(R.string.pref_lang_default_value),           //this need to be fixed
+                getString(R.string.pref_lang_key),           //this need to be fixed
                 getString(R.string.pref_lang_default_value)
         );
-
+//        Log.d(TAG, "language now is: "+ language);
         mChampionViewModel.loadChampion(language);
     }
 
@@ -152,4 +156,6 @@ public class MainActivity extends AppCompatActivity
         mChampionViewModel = ViewModelProviders.of(this).get(ChampionViewModel.class);
         loadChampion(sharedPreferences);
     }
+
+
 }

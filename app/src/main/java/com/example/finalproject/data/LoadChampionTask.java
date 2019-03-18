@@ -41,6 +41,4 @@ public class LoadChampionTask extends AsyncTask<Void, Void, String> {
         }
         mCallback.onChampionLoadFinished(championItems);
     }
-
-
 }

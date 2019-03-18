@@ -8,6 +8,7 @@
     <string name="share_chooser_title">Pick an app to share this champion</string>
 
     <string name="champion_name">%1$s</string>
+    <string name="champion_title">%1$s</string>
     <string name="champion_lore">Lore: %1$s</string>
 
     <!-- Strings for language pref -->

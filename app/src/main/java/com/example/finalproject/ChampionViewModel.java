@@ -18,8 +18,6 @@ public class ChampionViewModel extends ViewModel {
 
     private ChampionRepository mChampionRepository;
 
-    private AllChampionItem mCopy;
-
     public ChampionViewModel() {
         mChampionRepository = new ChampionRepository();
         mAllChampionItems = mChampionRepository.getChampion();
