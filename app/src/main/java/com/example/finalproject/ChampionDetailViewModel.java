@@ -29,7 +29,7 @@ public class ChampionDetailViewModel extends ViewModel {
     public void loadChampionDetail(String champion_name, String language) {
 //        Log.d(TAG, "language before repo is: "+ language);
         mChampionDetailRepository.loadChampionDetail(champion_name, language);
-        Log.d(TAG, "loadChampionDetail: 1");
+//        Log.d(TAG, "loadChampionDetail: 1");
     }
 
     public LiveData<List<ChampionDetailItem>> getChampionDetail() {

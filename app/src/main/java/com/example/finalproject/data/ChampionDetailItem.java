@@ -12,11 +12,17 @@ public class ChampionDetailItem implements Serializable {
     public String champion_passive_name;
     public String champion_passive_description;
     public String champion_passive_image;
-    public String champion_q;
-    public String champion_w;
-    public String champion_e;
+    public String champion_q_id;
+    public String champion_q_name;
+    public String champion_w_id;
+    public String champion_w_name;
+    public String champion_e_id;
+    public String champion_e_name;
+    public String champion_r_id;
+    public String champion_r_name;
 
 //    Skin
     public int champion_skin_number;
+
 
 }

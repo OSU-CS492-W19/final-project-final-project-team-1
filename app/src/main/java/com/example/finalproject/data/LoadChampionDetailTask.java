@@ -36,7 +36,7 @@ public class LoadChampionDetailTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        Log.d(TAG, "onPostExecute: 3");
+//        Log.d(TAG, "onPostExecute: 3");
         ArrayList<ChampionDetailItem> championDetailItems = null;
         if (s != null) {
             championDetailItems = LOLChampionUtils.parseChampionDetailJSON(s);

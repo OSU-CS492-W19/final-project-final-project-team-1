@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout mDrawerLayout;
 
     private ChampionAdapter mChampionAdapter;
-//    private DrawerAdapter mDrawerAdapter;
     private ChampionViewModel mChampionViewModel;
     private ChampionDetailViewModel mChampionDetailViewModel;
 
@@ -52,8 +51,8 @@ public class MainActivity extends AppCompatActivity
         mLoadingIndicatorPB = findViewById(R.id.pb_loading_indicator);
         mLoadingErrorMessageTV = findViewById(R.id.tv_loading_error_message);
         mChampionItemsRV = findViewById(R.id.rv_champion_items);
-        mDrawerItemRV = findViewById(R.id.rv_drawer_items);
-        mDrawerLayout = findViewById(R.id.drawer_layout);
+//        mDrawerItemRV = findViewById(R.id.rv_drawer_items);
+//        mDrawerLayout = findViewById(R.id.drawer_layout);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -134,9 +133,9 @@ public class MainActivity extends AppCompatActivity
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
                 return true;
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(Gravity.START);
-                return true;
+//            case android.R.id.home:
+//                mDrawerLayout.openDrawer(Gravity.START);
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

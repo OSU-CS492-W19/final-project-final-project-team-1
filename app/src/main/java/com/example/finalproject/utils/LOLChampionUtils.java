@@ -33,6 +33,8 @@ public class LOLChampionUtils {
 
     private final static String LOL_CHAMPION_PASSIVE_URL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/passive";
 
+    private final static String LOL_CHAMPION_WEB_URL = "https://na.leagueoflegends.com/en/game-info/champions";
+
     static class AllChampionResults {
         Map<String, ChampionData> data;
     }
@@ -81,8 +83,6 @@ public class LOLChampionUtils {
     static class ChampionDetailPassiveImage{
         String full;
     }
-
-
                                                    //Build URL here
 
     public static String buildChampionURL(String language) {
@@ -166,6 +166,18 @@ public class LOLChampionUtils {
         return championPassiveURL;
     }
 
+    public static String buildChampionWebURL(String champion_name) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https")
+                .authority("na.leagueoflegends.com")
+                .appendPath("en")
+                .appendPath("game-info")
+                .appendPath("champions")
+                .appendPath(champion_name);
+        String championWebURL = builder.build().toString();
+        return championWebURL;
+    }
+
     public static ArrayList<AllChampionItem> parseChampionJSON(String championJSON){
         Gson gson = new Gson();
         AllChampionResults results = gson.fromJson(championJSON, AllChampionResults.class);
@@ -195,7 +207,7 @@ public class LOLChampionUtils {
                 championDetailItem.champion_id = championData.getValue().id;
                 championDetailItem.champion_title = championData.getValue().title;
                 championDetailItem.champion_icon = championData.getValue().image.full;
-                championDetailItem.champion_default_skin = "_0,jpg";
+                championDetailItem.champion_default_skin = "_0.jpg";
                 championDetailItem.champion_lore = championData.getValue().lore;
 
                 //needed more skin and spell
@@ -203,6 +215,15 @@ public class LOLChampionUtils {
                 championDetailItem.champion_passive_name = championData.getValue().passive.name;
                 championDetailItem.champion_passive_description = championData.getValue().passive.description;
                 championDetailItem.champion_passive_image = championData.getValue().passive.image.full;
+
+                championDetailItem.champion_q_id = championData.getValue().spells[0].id;
+                championDetailItem.champion_q_name = championData.getValue().spells[0].name;
+                championDetailItem.champion_w_id = championData.getValue().spells[1].id;
+                championDetailItem.champion_w_name = championData.getValue().spells[1].name;
+                championDetailItem.champion_e_id = championData.getValue().spells[2].id;
+                championDetailItem.champion_e_name = championData.getValue().spells[2].name;
+                championDetailItem.champion_r_id = championData.getValue().spells[3].id;
+                championDetailItem.champion_r_name = championData.getValue().spells[3].name;
 
                 championDetailItems.add(championDetailItem);
 
@@ -214,7 +235,14 @@ public class LOLChampionUtils {
 //                Log.d(TAG, "champion passive name is :"+ championDetailItem.champion_passive_name);
 //                Log.d(TAG, "champion passive description is :"+ championDetailItem.champion_passive_description);
 //                Log.d(TAG, "champion passive image is :"+ championDetailItem.champion_passive_image);
-
+//                Log.d(TAG, "spell name is : " + championDetailItem.champion_q_id);
+//                Log.d(TAG, "spell name is : " + championDetailItem.champion_q_name);
+//                Log.d(TAG, "spell name is : " + championDetailItem.champion_w_id);
+//                Log.d(TAG, "spell name is : " + championDetailItem.champion_w_name);
+//                Log.d(TAG, "spell name is : " + championDetailItem.champion_e_id);
+//                Log.d(TAG, "spell name is : " + championDetailItem.champion_e_name);
+//                Log.d(TAG, "spell name is : " + championDetailItem.champion_r_id);
+//                Log.d(TAG, "spell name is : " + championDetailItem.champion_r_name);
             }
             return championDetailItems;
         } else {

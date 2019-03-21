@@ -7,6 +7,6 @@
         android:id="@+id/action_view_on_web"
         android:icon="@drawable/ic_action_view_on_web"
         android:title="View this champion on web"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never " />
 
 </menu>

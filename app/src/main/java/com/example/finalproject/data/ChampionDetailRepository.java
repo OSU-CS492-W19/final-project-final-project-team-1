@@ -46,7 +46,7 @@ public class ChampionDetailRepository implements LoadChampionDetailTask.AsyncCal
     }
 
     public LiveData<List<ChampionDetailItem>> getChampionDetail() {
-        Log.d(TAG, "getChampionDetail: 5");
+//        Log.d(TAG, "getChampionDetail: 5");
         return mChampionDetailItems; }
 
     public LiveData<Status> getLoadingStatus() {
@@ -63,10 +63,11 @@ public class ChampionDetailRepository implements LoadChampionDetailTask.AsyncCal
 
     @Override
     public void onChampionDetailLoadFinished(List<ChampionDetailItem> championDetailItems) {
-        Log.d(TAG, "onChampionDetailLoadFinished: 4");
         mChampionDetailItems.setValue(championDetailItems);
+//        String asdads = m
         if (championDetailItems != null) {
             mLoadingStatus.setValue(Status.SUCCESS);
+//            mStarttowork.fillInLayout(championDetailItems);
         } else {
             mLoadingStatus.setValue(Status.ERROR);
         }

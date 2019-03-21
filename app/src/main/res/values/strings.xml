@@ -16,10 +16,16 @@
     <string name="pref_lang_title">Choose a language</string>
     <string name="pref_lang_eng">English</string>
     <string name="pref_lang_fre">French</string>
-    <string name="pref_lang_cn">Chinese</string>
+    <string name="pref_lang_cn">Chinese (China)</string>
+    <string name="pref_lang_jp">Japanese</string>
+    <string name="pref_lang_sp">Spanish </string>
+    <string name="pref_lang_cnT">Chinese (Taiwan)</string>
     <string name="pref_lang_eng_value" translatable="false">en_US</string>
     <string name="pref_lang_fre_value" translatable="false">fr_FR</string>
+    <string name="pref_lang_sp_value" translatable="false">es_MX</string>
     <string name="pref_lang_cn_value" translatable="false">zh_CN</string>
+    <string name="pref_lang_cnT_value" translatable="false">zh_TW</string>
+    <string name="pref_lang_jp_value" translatable="false">ja_JP</string>
     <string name="pref_lang_default_value" translatable="false">@string/pref_lang_eng_value</string>
 
 </resources>
