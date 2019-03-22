@@ -10,6 +10,7 @@ import android.os.PersistableBundle;
 import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,6 +44,7 @@ public class ChampionDetailActivity extends AppCompatActivity
     private ChampionDetailAdapter mChampionDetailAdapter;
     private ChampionDetailItem mChampionDetailItem;
     private ChampionDetailViewModel mChampionDetailViewModel;
+    private String champion_name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class ChampionDetailActivity extends AppCompatActivity
         );
 
         Intent intent = getIntent();
-        String champion_name = intent.getStringExtra("champion_name");
+        champion_name = intent.getStringExtra("champion_name");
 
         mChampionDetailViewModel = ViewModelProviders.of(this).get(ChampionDetailViewModel.class);
 
@@ -92,10 +94,13 @@ public class ChampionDetailActivity extends AppCompatActivity
                     mPageLayout.setVisibility(View.INVISIBLE);
                     mLoadingErrorMessageTV.setVisibility(View.VISIBLE);
 //                    Log.d(TAG, "is it failed");
+
                 }
             }
         });
 ;
+//        mChampionDetailItem = (ChampionDetailItem)intent.getSerializableExtra(LOLChampionUtils.EXTRA_CHAMPION_DETAIL_ITEM) ;
+//        Log.d(TAG, "onChanged: "+ mChampionDetailItem);
         loadChampionDetail(champion_name, mLanguage);
 
     }
@@ -117,26 +122,52 @@ public class ChampionDetailActivity extends AppCompatActivity
 //        return true;
 //    }
 //
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.action_view_on_web:
-//                viewChampionOnWeb();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.champion_item_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_share:
+                shareChampion();
+                return true;
+            case R.id.action_view_on_web:
+                viewChampionOnWeb();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 //
-//    public void viewChampionOnWeb() {
-//        ChampionDetailItem championDetailItem = new ChampionDetailItem();
-//        String webURL = LOLChampionUtils.buildChampionWebURL(championDetailItem.champion_name);
-//        Log.d(TAG, "champion url is: " + webURL);
-//        Uri championURL = Uri.parse(webURL);
-//        Intent intent = new Intent(Intent.ACTION_VIEW, championURL);
-//        if (intent.resolveActivity(getPackageManager()) != null) {
-//            startActivity(intent);
+    public void shareChampion() {
+//        Uri webURI = Uri.parse(LOLChampionUtils.buildChampionWebURL(champion_name));
+        String URL= LOLChampionUtils.buildChampionWebURL(champion_name);
+            String shareText =champion_name+ "\n "+ URL;
+            ShareCompat.IntentBuilder.from(this)
+                    .setType("text/plain")
+                    .setText(shareText)
+                    .setChooserTitle(R.string.share_chooser_title)
+                    .startChooser();
+
+    }
+//
+    public void viewChampionOnWeb() {
+//
+        Log.d(TAG, "viewChampionOnWeb: "+ champion_name);
+//        if(mChampionDetailItem=null){
+            Uri webURI = Uri.parse(LOLChampionUtils.buildChampionWebURL(champion_name));
+            Log.d(TAG, "viewChampionOnWeb: URL" + webURI);
+            Intent intent = new Intent(Intent.ACTION_VIEW, webURI);{
+                if(intent.resolveActivity(getPackageManager())!=null){
+                    startActivity(intent);
+                }
+            }
+
 //        }
-//    }
+    }
 
 }

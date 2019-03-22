@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_nav_menu);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setHomeAsUpIndicator(R.drawable.ic_nav_menu);
 
         mChampionAdapter = new ChampionAdapter(this);
         mChampionItemsRV.setAdapter(mChampionAdapter);
