@@ -160,13 +160,13 @@ public class ChampionDetailAdapter extends RecyclerView.Adapter<ChampionDetailAd
         public void onClick(View v) {
             ChampionDetailItem championDetailItem = mChampionDetailItem.get(getAdapterPosition());
             mChampionDetailItemClickListener.onChampionDetailItemClick(championDetailItem);
-            String webURL = LOLChampionUtils.buildChampionWebURL(championDetailItem.champion_id);
-            Log.d(TAG, "champion url is: " + webURL);
-            Uri championURL = Uri.parse(webURL);
-            Intent intent = new Intent(Intent.ACTION_VIEW, championURL);
-//            if (intent.resolveActivity(getPackageManager()) != null) {
-                context.startActivity(intent);
-//            }
+//            String webURL = LOLChampionUtils.buildChampionWebURL(championDetailItem.champion_id);
+//            Log.d(TAG, "champion url is: " + webURL);
+//            Uri championURL = Uri.parse(webURL);
+//            Intent intent = new Intent(Intent.ACTION_VIEW, championURL);
+////            if (intent.resolveActivity(getPackageManager()) != null) {
+//                context.startActivity(intent);
+////            }
         }
     }
 
